@@ -10,10 +10,10 @@
    Right-side motors are reversed.
    Will need to confirm whether this or the opposite is necessary later on.
 */
-pros::Motor lwheel(L_WHEEL_PORT, false);
-pros::Motor rwheel(R_WHEEL_PORT, true);
-pros::Motor larm(L_ARM_PORT, false);
-pros::Motor rarm(R_ARM_PORT, true);
+pros::Motor lwheel(LWHEEL_PORT, false);
+pros::Motor rwheel(RWHEEL_PORT, true);
+pros::Motor larm(LARM_PORT, false);
+pros::Motor rarm(RARM_PORT, true);
 pros::Controller controller(CONTROLLER_MASTER);
 
 /*
