@@ -1,13 +1,29 @@
 #include "main.h"
 
-//replace later when we figure out what ports map to what
-const int LEFT_MOTOR_PORT = 1; 
-const int RIGHT_MOTOR_PORT = 2; 
+/* Replace later when we figure out what ports map to what. */
+#define LWHEEL_PORT 1   /* Left wheel. */
+#define RWHEEL_PORT 2   /* Right wheel. */
+#define LARM_PORT 3     /* Left arm thing. */
+#define RARM_PORT 4     /* Right arm thing. */
 
-pros::Motor left_motor(LEFT_MOTOR_PORT, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor right_motor(RIGHT_MOTOR_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
+/* 
+   Right-side motors are reversed.
+   Will need to confirm whether this or the opposite is necessary later on.
+*/
+pros::Motor lwheel(L_WHEEL_PORT, false);
+pros::Motor rwheel(R_WHEEL_PORT, true);
+pros::Motor larm(L_ARM_PORT, false);
+pros::Motor rarm(R_ARM_PORT, true);
+pros::Controller controller(CONTROLLER_MASTER);
 
+/*
+   A simple test callback function for brain's center button.
+*/
+void on_center_btn() {
+   static bool pressed = false;
+   pressed = !pressed;
+   pressed ? pros::lcd::set_text(2, "( ͡° ͜ʖ ͡°)") : pros::lcd::clear_line(2);
+}
 
 
 /**
@@ -20,7 +36,7 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
  void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
-
+   pros::lcd::register_btn1_cb(on_center_btn);
 }
 
 /**
